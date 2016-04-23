@@ -57,7 +57,7 @@ export default class App extends Component {
             </Nav>
           </Navbar.Collapse>
         </Navbar>
-        <div>
+        <div id={styles.main}>
           {this.props.children}
         </div>
 
