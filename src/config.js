@@ -15,7 +15,7 @@ module.exports = Object.assign({
   apiHost: process.env.APIHOST || 'localhost',
   apiPort: process.env.APIPORT,
   app: {
-    title: 'Robert Westenberger Portfolio',
+    title: 'Robert Westenberger',
     description: 'Portfolio of Robert Westenberger - Full Stack Web Developer',
     head: {
       titleTemplate: 'Robert Westenberger',
