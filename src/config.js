@@ -15,23 +15,20 @@ module.exports = Object.assign({
   apiHost: process.env.APIHOST || 'localhost',
   apiPort: process.env.APIPORT,
   app: {
-    title: 'React Redux Example',
-    description: 'All the modern best practices in one example.',
+    title: 'Robert Westenberger',
+    description: 'Portfolio of Robert Westenberger - Full Stack Web Developer',
     head: {
-      titleTemplate: 'React Redux Example: %s',
+      titleTemplate: 'Robert Westenberger',
       meta: [
-        {name: 'description', content: 'All the modern best practices in one example.'},
+        {name: 'description', content: 'Portfolio of Robert Westenberger - Full Stack Web Developer'},
         {charset: 'utf-8'},
         {property: 'og:site_name', content: 'React Redux Example'},
-        {property: 'og:image', content: 'https://react-redux.herokuapp.com/logo.jpg'},
         {property: 'og:locale', content: 'en_US'},
-        {property: 'og:title', content: 'React Redux Example'},
-        {property: 'og:description', content: 'All the modern best practices in one example.'},
+        {property: 'og:title', content: 'Robert Westenberger'},
+        {property: 'og:description', content: 'Portfolio of Robert Westenberger - Full Stack Web Developer'},
         {property: 'og:card', content: 'summary'},
-        {property: 'og:site', content: '@erikras'},
-        {property: 'og:creator', content: '@erikras'},
-        {property: 'og:image:width', content: '200'},
-        {property: 'og:image:height', content: '200'}
+        {property: 'og:site', content: '@rmwdeveloper'},
+        {property: 'og:creator', content: '@rmwdeveloper'}
       ]
     }
   },
