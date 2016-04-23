@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Helmet from 'react-helmet';
+import { FlatSurfaceShader } from 'components';
 
 export default class Home extends Component {
   render() {
@@ -9,7 +10,7 @@ export default class Home extends Component {
     return (
       <div className={styles.home}>
         <Helmet title="Home"/>
-        <h2>Hello World!</h2>
+        <FlatSurfaceShader refreshDuration={10000} />
       </div>
     );
   }
