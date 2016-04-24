@@ -1,6 +1,16 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
+const KEY = {
+  LEFT: 37,
+  RIGHT: 39,
+  UP: 38,
+  A: 65,
+  D: 68,
+  W: 87,
+  SPACE: 32
+};
+
 @connect(
   state => ({
     screen: state.pacman.screen,
@@ -20,6 +30,33 @@ export default class Pacman extends Component {
     topScore: PropTypes.number.isRequired,
     inGame: PropTypes.bool.isRequired
   };
+  constructor() {
+    super();
+    this.pacman = [];
+
+    this.handleKeys = this.handleKeys.bind(this);
+    this.handleResize = this.handleResize.bind(this);
+  }
+  componentDidMount() {
+    window.addEventListener('keyup', this.handleKeys, false);
+    window.addEventListener('keydown', this.handleKeys, true);
+    window.addEventListener('resize', this.handleResize, false);
+  }
+  handleKeys(value, e) {
+    const { keys } = this.props;
+    console.log(e);
+    if (e.keyCode === KEY.LEFT || e.keyCode === KEY.A) keys.left = value;
+    if (e.keyCode === KEY.RIGHT || e.keyCode === KEY.D) keys.right = value;
+    if (e.keyCode === KEY.UP || e.keyCode === KEY.W) keys.up = value;
+    if (e.keyCode === KEY.SPACE) keys.space = value;
+    console.log('key press');
+    // this.setState({
+    //   keys : keys
+    // });
+  }
+  handleResize(value, e) {
+    console.log('resizing..', e);
+  }
   render() {
     const { screen: { width, height } } = this.props;
     return (
