@@ -1,5 +1,6 @@
 const KEY_PRESS = 'pacman/KEY_PRESS';
 const SET_CONTEXT = 'pacman/SET_CONTEXT';
+const START_GAME = 'pacman/START_GAME';
 const WINDOW_RESIZE = 'pacman/WINDOW_RESIZE';
 
 const initialState = {
@@ -32,6 +33,12 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         context: action.context
       };
+    case START_GAME:
+      return {
+        ...state,
+        inGame: true,
+        currentScore: 0
+      };
     case WINDOW_RESIZE:
       return {
         ...state,
@@ -45,9 +52,11 @@ export default function reducer(state = initialState, action = {}) {
 export function keyPress(keys) {
   return { type: KEY_PRESS, keys };
 }
-
 export function setContext(context) {
   return { type: SET_CONTEXT, context };
+}
+export function startGame() {
+  return { type: START_GAME };
 }
 export function windowResize(screen) {
   return { type: WINDOW_RESIZE, screen};
