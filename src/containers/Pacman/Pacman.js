@@ -5,9 +5,11 @@ const KEY = {
   LEFT: 37,
   RIGHT: 39,
   UP: 38,
+  DOWN: 40,
   A: 65,
   D: 68,
   W: 87,
+  S: 83,
   SPACE: 32
 };
 
@@ -33,23 +35,20 @@ export default class Pacman extends Component {
   constructor() {
     super();
     this.pacman = [];
-
-    this.handleKeys = this.handleKeys.bind(this);
-    this.handleResize = this.handleResize.bind(this);
   }
   componentDidMount() {
-    window.addEventListener('keyup', this.handleKeys, false);
-    window.addEventListener('keydown', this.handleKeys, true);
-    window.addEventListener('resize', this.handleResize, false);
+    window.addEventListener('keyup', this.handleKeys.bind(this, false));
+    window.addEventListener('keydown', this.handleKeys.bind(this, true));
+    window.addEventListener('resize', this.handleResize.bind(this, false));
   }
   handleKeys(value, e) {
     const { keys } = this.props;
-    console.log(e);
     if (e.keyCode === KEY.LEFT || e.keyCode === KEY.A) keys.left = value;
     if (e.keyCode === KEY.RIGHT || e.keyCode === KEY.D) keys.right = value;
     if (e.keyCode === KEY.UP || e.keyCode === KEY.W) keys.up = value;
+    if (e.keyCode === KEY.DOWN || e.keyCode === KEY.S) keys.down = value;
     if (e.keyCode === KEY.SPACE) keys.space = value;
-    console.log('key press');
+    console.log('key press ', keys);
     // this.setState({
     //   keys : keys
     // });
