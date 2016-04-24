@@ -1,5 +1,7 @@
 const KEY_PRESS = 'pacman/KEY_PRESS';
+const SET_CONTEXT = 'pacman/SET_CONTEXT';
 const WINDOW_RESIZE = 'pacman/WINDOW_RESIZE';
+
 const initialState = {
   screen: {
     width: 100,
@@ -25,6 +27,11 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         keys: {...state.keys, ...action.keys}
       };
+    case SET_CONTEXT:
+      return {
+        ...state,
+        context: action.context
+      };
     case WINDOW_RESIZE:
       return {
         ...state,
@@ -39,6 +46,9 @@ export function keyPress(keys) {
   return { type: KEY_PRESS, keys };
 }
 
+export function setContext(context) {
+  return { type: SET_CONTEXT, context };
+}
 export function windowResize(screen) {
   return { type: WINDOW_RESIZE, screen};
 }

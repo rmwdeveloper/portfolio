@@ -33,7 +33,8 @@ export default class Pacman extends Component {
     topScore: PropTypes.number.isRequired,
     inGame: PropTypes.bool.isRequired,
     keyPress: PropTypes.func.isRequired,
-    windowResize: PropTypes.func.isRequired
+    windowResize: PropTypes.func.isRequired,
+    setContext: PropTypes.func.isRequired
   };
   constructor() {
     super();
@@ -46,6 +47,9 @@ export default class Pacman extends Component {
     window.addEventListener('keyup', this.handleKeys.bind(this, false));
     window.addEventListener('keydown', this.handleKeys.bind(this, true));
     window.addEventListener('resize', this.handleResize.bind(this, false));
+
+    const context = this.refs.canvas.getContext('2d');
+    this.props.setContext(context);
   }
   handleKeys(value, e) {
     const { keys, keyPress } = this.props;
@@ -64,11 +68,7 @@ export default class Pacman extends Component {
     this.props.windowResize(screen);
   }
   render() {
-    const { screen: { width, height } } = this.props;
-    return (
-      <div>
-        <canvas ref="canvas" width={width} height={height} />
-      </div>
-    );
+    const { screen: { width, height }} = this.props;
+    return <canvas ref="canvas" width={width} height={height} />;
   }
 }
