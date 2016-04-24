@@ -3,9 +3,10 @@ import {IndexRoute, Route} from 'react-router';
 
 import {
     App,
-    Home,
     About,
+    Home,
     NotFound,
+    Pacman
   } from 'containers';
 
 export default () => {
@@ -19,6 +20,7 @@ export default () => {
 
       /* Routes*/
       <Route path="about" component={About}/>
+      <Route path="pacman" component={Pacman}/>
       { /* Catch all route */ }
       <Route path="*" component={NotFound} status={404} />
     </Route>
