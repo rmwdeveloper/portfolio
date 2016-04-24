@@ -33,6 +33,7 @@ export default class Pacman extends Component {
     topScore: PropTypes.number.isRequired,
     inGame: PropTypes.bool.isRequired,
     keyPress: PropTypes.func.isRequired,
+    windowResize: PropTypes.func.isRequired
   };
   constructor() {
     super();
@@ -52,8 +53,12 @@ export default class Pacman extends Component {
     if (e.keyCode === KEY.SPACE) keys.space = value;
     keyPress(keys);
   }
-  handleResize(value, e) {
-    console.log('resizing..', e);
+  handleResize() {
+    const screen = {
+      width: window.innerWidth,
+      height: window.innerHeight
+    };
+    this.props.windowResize(screen);
   }
   render() {
     const { screen: { width, height } } = this.props;

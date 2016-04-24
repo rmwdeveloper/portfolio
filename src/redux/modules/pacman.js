@@ -1,5 +1,5 @@
 const KEY_PRESS = 'pacman/KEY_PRESS';
-
+const WINDOW_RESIZE = 'pacman/WINDOW_RESIZE';
 const initialState = {
   screen: {
     width: 100,
@@ -25,6 +25,11 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         keys: {...state.keys, ...action.keys}
       };
+    case WINDOW_RESIZE:
+      return {
+        ...state,
+        screen: {...state.screen, ...action.screen}
+      };
     default:
       return state;
   }
@@ -32,4 +37,8 @@ export default function reducer(state = initialState, action = {}) {
 
 export function keyPress(keys) {
   return { type: KEY_PRESS, keys };
+}
+
+export function windowResize(screen) {
+  return { type: WINDOW_RESIZE, screen};
 }
