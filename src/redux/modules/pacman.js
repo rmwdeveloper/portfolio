@@ -1,3 +1,5 @@
+const KEY_PRESS = 'pacman/KEY_PRESS';
+
 const initialState = {
   screen: {
     width: 100,
@@ -18,7 +20,16 @@ const initialState = {
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
+    case KEY_PRESS:
+      return {
+        ...state,
+        keys: action.keys
+      };
     default:
       return state;
   }
+}
+
+export function keyPress(keys) {
+  return { type: KEY_PRESS, keys };
 }

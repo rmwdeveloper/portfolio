@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import * as widgetActions from 'redux/modules/pacman';
 
 const KEY = {
   LEFT: 37,
@@ -21,8 +22,8 @@ const KEY = {
     currentScore: state.pacman.currentScore,
     topScore: state.pacman.topScore,
     inGame: state.pacman.inGame
-  })
-)
+  }),
+  {...widgetActions})
 export default class Pacman extends Component {
   static propTypes = {
     screen: PropTypes.object.isRequired,
@@ -30,7 +31,8 @@ export default class Pacman extends Component {
     keys: PropTypes.object.isRequired,
     currentScore: PropTypes.number.isRequired,
     topScore: PropTypes.number.isRequired,
-    inGame: PropTypes.bool.isRequired
+    inGame: PropTypes.bool.isRequired,
+    keyPress: PropTypes.func.isRequired,
   };
   constructor() {
     super();
@@ -42,22 +44,20 @@ export default class Pacman extends Component {
     window.addEventListener('resize', this.handleResize.bind(this, false));
   }
   handleKeys(value, e) {
-    const { keys } = this.props;
+    const { keys, keyPress } = this.props;
     if (e.keyCode === KEY.LEFT || e.keyCode === KEY.A) keys.left = value;
     if (e.keyCode === KEY.RIGHT || e.keyCode === KEY.D) keys.right = value;
     if (e.keyCode === KEY.UP || e.keyCode === KEY.W) keys.up = value;
     if (e.keyCode === KEY.DOWN || e.keyCode === KEY.S) keys.down = value;
     if (e.keyCode === KEY.SPACE) keys.space = value;
-    console.log('key press ', keys);
-    // this.setState({
-    //   keys : keys
-    // });
+    keyPress(keys);
   }
   handleResize(value, e) {
     console.log('resizing..', e);
   }
   render() {
-    const { screen: { width, height } } = this.props;
+    const { screen: { width, height }, keys } = this.props;
+    console.log(keys);
     return (
       <div>
         <canvas ref="canvas" width={width} height={height} />
