@@ -56,8 +56,7 @@ export default class Pacman extends Component {
     console.log('resizing..', e);
   }
   render() {
-    const { screen: { width, height }, keys } = this.props;
-    console.log(keys);
+    const { screen: { width, height } } = this.props;
     return (
       <div>
         <canvas ref="canvas" width={width} height={height} />

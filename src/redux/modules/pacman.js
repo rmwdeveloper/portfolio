@@ -23,7 +23,7 @@ export default function reducer(state = initialState, action = {}) {
     case KEY_PRESS:
       return {
         ...state,
-        keys: action.keys
+        keys: {...state.keys, ...action.keys}
       };
     default:
       return state;
