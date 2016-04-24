@@ -61,9 +61,7 @@ export default class FlatSurfaceShader extends Component {
   }
   createPolygons() {
     const { points, numPointsX, numPointsY, unitHeight, unitWidth, svg } = this;
-    window.t0 = this;
     for (let i = 0; i < points.length; i++) {
-      window.i = i;
       if (points[i].originX !== unitWidth * (numPointsX - 1) && points[i].originY !== unitHeight * (numPointsY - 1)) {
         const topLeftX = points[i].x;
         const topLeftY = points[i].y;
