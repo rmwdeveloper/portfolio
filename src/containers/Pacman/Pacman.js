@@ -39,6 +39,9 @@ export default class Pacman extends Component {
     super();
     this.pacman = [];
   }
+  componentWillMount() {
+    this.handleResize();
+  }
   componentDidMount() {
     window.addEventListener('keyup', this.handleKeys.bind(this, false));
     window.addEventListener('keydown', this.handleKeys.bind(this, true));
