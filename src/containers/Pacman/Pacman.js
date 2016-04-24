@@ -53,6 +53,9 @@ export default class Pacman extends Component {
     this.props.setContext(context);
     this.startGame();
   }
+  generateMap() {
+    console.log('generating map..');
+  }
   handleKeys(value, e) {
     const { keys, keyPress } = this.props;
     if (e.keyCode === KEY.LEFT || e.keyCode === KEY.A) keys.left = value;
@@ -71,6 +74,7 @@ export default class Pacman extends Component {
   }
   startGame() {
     this.props.startGame();
+    this.generateMap();
   }
   render() {
     const { screen: { width, height }} = this.props;
