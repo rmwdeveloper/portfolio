@@ -15,11 +15,14 @@ export default class FlatSurfaceShader extends Component {
     this.createPolygons = this.createPolygons.bind(this);
   }
   componentDidMount() {
-    window.onload = this.onLoad;
-    window.onresize = this.onResize;
+    window.addEventListener('onload', this.onLoad);
+    window.addEventListener('onresize', this.onResize);
+    this.onLoad();
   }
   componentWillUnmount() {
     window.clearTimeout(this.refreshTimeout);
+    window.removeEventListener('onload', this.onLoad);
+    window.removeEventListener('onresize', this.onResize);
     if (this.svg) {
       this.svg.remove();
     }
