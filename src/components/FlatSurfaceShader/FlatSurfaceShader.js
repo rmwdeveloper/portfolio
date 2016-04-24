@@ -18,6 +18,12 @@ export default class FlatSurfaceShader extends Component {
     window.onload = this.onLoad;
     window.onresize = this.onResize;
   }
+  componentWillUnmount() {
+    window.clearTimeout(this.refreshTimeout);
+    if (this.svg) {
+      this.svg.remove();
+    }
+  }
   /*
    onLoad() creates an svg and appends it to the div rendered by this component.
    */
@@ -30,7 +36,7 @@ export default class FlatSurfaceShader extends Component {
     this.refresh();
   }
   onResize() {
-    this._bg.remove();
+    this.svg.remove();
     clearTimeout(this.refreshTimeout);
     this.onLoad();
   }
