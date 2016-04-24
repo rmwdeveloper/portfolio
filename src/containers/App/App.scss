@@ -20,6 +20,9 @@
     margin-bottom: 0;
   }
 }
+body{
+  overflow-y: hidden;
+}
 .appContent {
   margin: 50px 0; // for fixed navbar
 }

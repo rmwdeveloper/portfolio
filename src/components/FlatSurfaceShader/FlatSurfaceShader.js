@@ -58,8 +58,9 @@ export default class FlatSurfaceShader extends Component {
   }
   createSvg() {
     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    const navBarHeight = document.querySelector('nav.navbar').offsetHeight;
     svg.setAttribute('width', window.innerWidth);
-    svg.setAttribute('height', window.innerHeight);
+    svg.setAttribute('height', window.innerHeight - navBarHeight );
     return svg;
   }
   createPolygons() {
