@@ -5,46 +5,65 @@ export default class FlatSurfaceShader extends Component {
 
   constructor(props) {
     super(props);
-    this.points = [];
-    this.unitSize = (window.innerWidth + window.innerHeight) / 20;
-    this.numPointsX = Math.ceil(window.innerWidth / this.unitSize) + 1;
-    this.numPointsY = Math.ceil(window.innerHeight / this.unitSize) + 1;
-    this.unitWidth = Math.ceil(window.innerWidth / (this.numPointsX - 1));
-    this.unitHeight = Math.ceil(window.innerHeight / (this.numPointsY - 1));
-    this.refreshTimeout = 10000;
+    this.refreshDuration = 10000;
     this.randomize = this.randomize.bind(this);
     this.refresh = this.refresh.bind(this);
     this.onResize = this.onResize.bind(this);
     this.onLoad = this.onLoad.bind(this);
+    this.createSvg = this.createSvg.bind(this);
+    this.setShaderProperties = this.setShaderProperties.bind(this);
+    this.createPolygons = this.createPolygons.bind(this);
   }
   componentDidMount() {
     window.onload = this.onLoad;
     window.onresize = this.onResize;
   }
+  componentWillUnmount() {
+    window.clearTimeout(this.refreshTimeout);
+    if (this.svg) {
+      this.svg.remove();
+    }
+  }
   /*
    onLoad() creates an svg and appends it to the div rendered by this component.
    */
   onLoad() {
-    let y = 0;
-    let x = 0;
-    let i = 0;
-    let n = 0;
-    const { numPointsX, numPointsY, points, unitWidth, unitHeight } = this;
+    this.svg = this.createSvg();
+    this._bg.appendChild(this.svg);
+    this.setShaderProperties();
+    this.randomize();
+    this.createPolygons();
+    this.refresh();
+  }
+  onResize() {
+    this.svg.remove();
+    clearTimeout(this.refreshTimeout);
+    this.onLoad();
+  }
+  setShaderProperties() {
+    this.unitSize = (window.innerWidth + window.innerHeight) / 20;
+    this.numPointsX = Math.ceil(window.innerWidth / this.unitSize) + 1;
+    this.numPointsY = Math.ceil(window.innerHeight / this.unitSize) + 1;
+    this.unitWidth = Math.ceil(window.innerWidth / (this.numPointsX - 1));
+    this.unitHeight = Math.ceil(window.innerHeight / (this.numPointsY - 1));
+    this.points = [];
+    for (let y = 0; y < this.numPointsY; y++) {
+      for (let x = 0; x < this.numPointsX; x++) {
+        this.points.push({x: this.unitWidth * x, y: this.unitHeight * y, originX: this.unitWidth * x, originY: this.unitHeight * y});
+      }
+    }
+  }
+  createSvg() {
     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg.setAttribute('width', window.innerWidth);
     svg.setAttribute('height', window.innerHeight);
-    this._bg.appendChild(svg);
-    for (y; y < numPointsY; y++) {
-      for (x; x < numPointsX; x++) {
-        points.push({x: unitWidth * x, y: unitHeight * y, originX: unitWidth * x, originY: unitHeight * y});
-      }
-    }
-
-    this.randomize();
-
-    console.log('points', points);
-
-    for (i; i < points.length; i++) {
+    return svg;
+  }
+  createPolygons() {
+    const { points, numPointsX, numPointsY, unitHeight, unitWidth, svg } = this;
+    window.t0 = this;
+    for (let i = 0; i < points.length; i++) {
+      window.i = i;
       if (points[i].originX !== unitWidth * (numPointsX - 1) && points[i].originY !== unitHeight * (numPointsY - 1)) {
         const topLeftX = points[i].x;
         const topLeftY = points[i].y;
@@ -56,7 +75,7 @@ export default class FlatSurfaceShader extends Component {
         const bottomRightY = points[i + numPointsX + 1].y;
 
         const random = Math.floor(Math.random() * 2);
-        for (n; n < 2; n++) {
+        for (let n = 0; n < 2; n++) {
           const polygon = document.createElementNS(svg.namespaceURI, 'polygon');
 
           if (random === 0) {
@@ -95,17 +114,10 @@ export default class FlatSurfaceShader extends Component {
         }
       }
     }
-    this.refresh();
-  }
-  onResize() {
-    this._bg.remove();
-    clearTimeout(this.refreshTimeout);
-    this.onLoad();
   }
   randomize() {
-    let i = 0;
     const { points, unitWidth, unitHeight, numPointsX, numPointsY } = this;
-    for (i; i < points.length; i++) {
+    for (let i = 0; i < points.length; i++) {
       if (points[i].originX !== 0 && points[i].originX !== unitWidth * (numPointsX - 1)) {
         points[i].x = points[i].originX + Math.random() * unitWidth - unitWidth / 2;
       }
@@ -115,11 +127,10 @@ export default class FlatSurfaceShader extends Component {
     }
   }
   refresh() {
-    let i = 0;
     const { points } = this;
     this.randomize();
-    for ( i; i < this._bg.childNodes.length; i++) {
-      const polygon = this._bg.childNodes[i];
+    for (let i = 0; i < this.svg.childNodes.length; i++) {
+      const polygon = this.svg.childNodes[i];
       const animate = polygon.childNodes[0];
       if (animate.getAttribute('to')) {
         animate.setAttribute('from', animate.getAttribute('to'));
