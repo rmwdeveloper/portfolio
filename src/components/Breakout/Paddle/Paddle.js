@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
 
-export default class Paddle extends Component {
-  render() {
-    return <div>Paddle</div>;
+export default class Paddle {
+  constructor(args) {
+    this.position = args.position;
   }
 }
