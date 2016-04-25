@@ -72,7 +72,6 @@ export default class Breakout extends Component {
   startGame() {
     const {startGame, screen: {width, height}} = this.props;
     startGame();
-    console.log('width, height', width, height);
     this.paddle = new Paddle({
       position: {
         x: width / 2,
@@ -80,8 +79,8 @@ export default class Breakout extends Component {
       }
     });
   }
-  updatePaddle(keys, context) {
-    this.paddle.render(keys, context);
+  updatePaddle(keys, context, screen) {
+    this.paddle.render(keys, context, screen);
   }
   update() {
     const { context, screen, keys } = this.props;
@@ -89,7 +88,7 @@ export default class Breakout extends Component {
     context.globalAlpha = 0.4;
     context.fillRect(0, 0, screen.width, screen.height);
     context.globalAlpha = 1;
-    this.updatePaddle(keys, context);
+    this.updatePaddle(keys, context, screen);
     requestAnimationFrame(() => {this.update();});
   }
   render() {
