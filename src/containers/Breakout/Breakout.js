@@ -53,9 +53,6 @@ export default class Breakout extends Component {
     this.startGame();
     requestAnimationFrame(() => {this.update();});
   }
-  generateMap() {
-    console.log(Paddle);
-  }
   handleKeys(value, e) {
     const { keys, keyPress } = this.props;
     if (e.keyCode === KEY.LEFT || e.keyCode === KEY.A) keys.left = value;
@@ -75,19 +72,23 @@ export default class Breakout extends Component {
   startGame() {
     const {startGame, screen: {width, height}} = this.props;
     startGame();
-    this.generateMap();
     this.paddle = new Paddle({
-      x: width / 2,
-      y: height / 2
+      position: {
+        x: width / 2,
+        y: height / 2
+      }
     });
   }
+  updatePaddle(keys, context) {
+    this.paddle.render(keys, context);
+  }
   update() {
-    const { context, screen: { width, height } } = this.props;
+    const { context, screen, keys } = this.props;
     context.fillStyle = '#0000FF';
     context.globalAlpha = 0.4;
-    context.fillRect(0, 0, width, height);
+    context.fillRect(0, 0, screen.width, screen.height);
     context.globalAlpha = 1;
-    console.log('rendering');
+    this.updatePaddle(keys, context);
     requestAnimationFrame(() => {this.update();});
   }
   render() {
