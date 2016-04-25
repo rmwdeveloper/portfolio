@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import * as widgetActions from 'redux/modules/breakout';
-
+import { Paddle } from 'components';
 const KEY = {
   LEFT: 37,
   RIGHT: 39,
@@ -53,7 +53,7 @@ export default class Breakout extends Component {
     this.startGame();
   }
   generateMap() {
-    console.log('generating map..');
+    console.log(Paddle);
   }
   handleKeys(value, e) {
     const { keys, keyPress } = this.props;
