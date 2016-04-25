@@ -51,6 +51,7 @@ export default class Breakout extends Component {
     const context = this.refs.canvas.getContext('2d');
     this.props.setContext(context);
     this.startGame();
+    requestAnimationFrame(() => {this.update();});
   }
   generateMap() {
     console.log(Paddle);
@@ -79,6 +80,15 @@ export default class Breakout extends Component {
       x: width / 2,
       y: height / 2
     });
+  }
+  update() {
+    const { context, screen: { width, height } } = this.props;
+    context.fillStyle = '#0000FF';
+    context.globalAlpha = 0.4;
+    context.fillRect(0, 0, width, height);
+    context.globalAlpha = 1;
+    console.log('rendering');
+    requestAnimationFrame(() => {this.update();});
   }
   render() {
     const { screen: { width, height }} = this.props;
