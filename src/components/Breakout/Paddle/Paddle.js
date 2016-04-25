@@ -5,34 +5,33 @@ export default class Paddle {
     this.speed = 20;
     this.width = 115;
   }
-  move(direction, screen) {
+  move(direction) {
     if (direction === 'LEFT' && (this.position.x >= 15)) {
       this.position.x -= this.speed;
     }
-    if (direction === 'RIGHT' && (this.position.x + this.width <= screen.width)) {
+    if (direction === 'RIGHT' && (this.position.x + this.width <= this.screen.width)) {
       this.position.x += this.speed;
     }
-    if (direction === 'UP' && (this.position.y >= screen.height / 2.5)) {
+    if (direction === 'UP' && (this.position.y >= this.screen.height / 2.5)) {
       this.position.y -= this.speed;
-      console.log('up', this.position.y, screen.height);
     }
-    if (direction === 'DOWN' && (this.position.y <= screen.height / 1.15)) {
+    if (direction === 'DOWN' && (this.position.y <= this.screen.height / 1.15)) {
       this.position.y += this.speed;
-      console.log('down', this.position.y, screen.height);
     }
   }
   render(keys, context, screen) {
+    this.screen = screen;
     if (keys.left) {
-      this.move('LEFT', screen);
+      this.move('LEFT');
     }
     if (keys.right) {
-      this.move('RIGHT', screen);
+      this.move('RIGHT');
     }
     if (keys.up) {
-      this.move('UP', screen);
+      this.move('UP');
     }
     if (keys.down) {
-      this.move('DOWN', screen);
+      this.move('DOWN');
     }
     context.save();
     context.translate(this.position.x, this.position.y);
