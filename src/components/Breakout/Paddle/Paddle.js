@@ -11,19 +11,15 @@ export default class Paddle {
     if (keys.right) {
       this.rotate('RIGHT');
     }
+
     context.save();
     context.translate(this.position.x, this.position.y);
-    context.strokeStyle = '#ffffff';
-    context.fillStyle = '#FDfC0A';
+    context.strokeStyle = '#000';
+    context.fillStyle = 'red';
     context.lineWidth = 2;
     context.beginPath();
     context.moveTo(0, -15);
-    context.lineTo(10, 10);
-    context.lineTo(5, 7);
-    context.lineTo(-5, 7);
-    context.lineTo(-10, 10);
-    context.closePath();
-    context.fill();
+    context.fillRect(0, 0, 115, 15);
     context.stroke();
     context.restore();
   }

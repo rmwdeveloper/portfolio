@@ -72,10 +72,11 @@ export default class Breakout extends Component {
   startGame() {
     const {startGame, screen: {width, height}} = this.props;
     startGame();
+    console.log('width, height', width, height);
     this.paddle = new Paddle({
       position: {
         x: width / 2,
-        y: height / 2
+        y: height / 1.15
       }
     });
   }
