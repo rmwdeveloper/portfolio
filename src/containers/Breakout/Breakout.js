@@ -72,8 +72,13 @@ export default class Breakout extends Component {
     this.props.windowResize(screen);
   }
   startGame() {
-    this.props.startGame();
+    const {startGame, screen: {width, height}} = this.props;
+    startGame();
     this.generateMap();
+    this.paddle = new Paddle({
+      x: width / 2,
+      y: height / 2
+    });
   }
   render() {
     const { screen: { width, height }} = this.props;
