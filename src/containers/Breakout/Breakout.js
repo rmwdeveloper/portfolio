@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import * as widgetActions from 'redux/modules/pacman';
+import * as widgetActions from 'redux/modules/breakout';
 
 const KEY = {
   LEFT: 37,
@@ -16,15 +16,15 @@ const KEY = {
 
 @connect(
   state => ({
-    screen: state.pacman.screen,
-    context: state.pacman.context,
-    keys: state.pacman.keys,
-    currentScore: state.pacman.currentScore,
-    topScore: state.pacman.topScore,
-    inGame: state.pacman.inGame
+    screen: state.breakout.screen,
+    context: state.breakout.context,
+    keys: state.breakout.keys,
+    currentScore: state.breakout.currentScore,
+    topScore: state.breakout.topScore,
+    inGame: state.breakout.inGame
   }),
   {...widgetActions})
-export default class Pacman extends Component {
+export default class Breakout extends Component {
   static propTypes = {
     screen: PropTypes.object.isRequired,
     context: PropTypes.object.isRequired,
@@ -39,7 +39,6 @@ export default class Pacman extends Component {
   };
   constructor() {
     super();
-    this.pacman = [];
   }
   componentWillMount() {
     this.handleResize();

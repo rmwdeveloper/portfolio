@@ -6,7 +6,7 @@ import {
     About,
     Home,
     NotFound,
-    Pacman
+    Breakout
   } from 'containers';
 
 export default () => {
@@ -20,7 +20,7 @@ export default () => {
 
       /* Routes*/
       <Route path="about" component={About}/>
-      <Route path="pacman" component={Pacman}/>
+      <Route path="breakout" component={Breakout}/>
       { /* Catch all route */ }
       <Route path="*" component={NotFound} status={404} />
     </Route>
