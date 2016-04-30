@@ -42,7 +42,8 @@ export default class Breakout extends Component {
     this.generateBricks = this.generateBricks.bind(this);
     this.updateBricks = this.updateBricks.bind(this);
     this.bricks = [];
-    this.numColumns = 10;
+    this.paddle = null;
+    this.numColumns = 8;
     this.numRows = 4;
     this.brickHeight = 20;
   }
@@ -60,16 +61,18 @@ export default class Breakout extends Component {
     requestAnimationFrame(() => {this.update();});
   }
   generateBricks() {
-    console.log('generateBricks..');
     const { screen } = this.props;
-    for (let i = 0; i < this.numColumns; i++) {
-      for (let j = 0; j < this.numRows; j++) {
-        this.bricks.push(new Brick({
-          position: {x: i * screen.width / this.numColumns, y: j * this.brickHeight},
+    for (let i = 0; i < this.numRows; i++) {
+      const row = [];
+      for (let j = 0; j < this.numColumns; j++) {
+        row.push(new Brick({
+          positionX: j * screen.width / this.numColumns,
+          positionY: i * this.brickHeight,
           brickWidth: screen.width / this.numColumns,
           brickHeight: this.brickHeight
         }));
       }
+      this.bricks.push(row);
     }
   }
   handleKeys(value, e) {
@@ -99,10 +102,15 @@ export default class Breakout extends Component {
     });
     this.generateBricks();
   }
-  updateBricks(context) {
-    console.log('updateing bricks..', this.bricks.length);
+  updateBricks(context, screen) {
     for (let i = 0; i < this.bricks.length; i++) {
-      this.bricks[i].render(context);
+      for (let j = 0; j < this.bricks[i].length; j++) {
+        const positionX = j * screen.width / this.numColumns;
+        const positionY = i * this.brickHeight;
+        const brickWidth = screen.width / this.numColumns;
+        const brickHeight = this.brickHeight;
+        this.bricks[i][j].render(context, positionX, positionY, brickWidth, brickHeight);
+      }
     }
   }
   updatePaddle(keys, context, screen) {
@@ -111,11 +119,10 @@ export default class Breakout extends Component {
   update() {
     const { context, screen, keys } = this.props;
     context.fillStyle = '#0000FF';
-    context.globalAlpha = 0.4;
     context.fillRect(0, 0, screen.width, screen.height);
     context.globalAlpha = 1;
     this.updatePaddle(keys, context, screen);
-    this.updateBricks(context);
+    this.updateBricks(context, screen);
     requestAnimationFrame(() => {this.update();});
   }
   render() {
