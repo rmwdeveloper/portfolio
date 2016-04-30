@@ -2,4 +2,4 @@ export App from './App/App';
 export About from './About/About';
 export Home from './Home/Home';
 export NotFound from './NotFound/NotFound';
-export Pacman from './Pacman/Pacman';
+export Breakout from './Breakout/Breakout';

@@ -1,7 +1,7 @@
-const KEY_PRESS = 'pacman/KEY_PRESS';
-const SET_CONTEXT = 'pacman/SET_CONTEXT';
-const START_GAME = 'pacman/START_GAME';
-const WINDOW_RESIZE = 'pacman/WINDOW_RESIZE';
+const KEY_PRESS = 'breakout/KEY_PRESS';
+const SET_CONTEXT = 'breakout/SET_CONTEXT';
+const START_GAME = 'breakout/START_GAME';
+const WINDOW_RESIZE = 'breakout/WINDOW_RESIZE';
 
 const initialState = {
   screen: {
