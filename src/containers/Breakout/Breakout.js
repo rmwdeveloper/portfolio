@@ -126,7 +126,11 @@ export default class Breakout extends Component {
     requestAnimationFrame(() => {this.update();});
   }
   render() {
+    const styles = require('./Breakout.scss');
     const { screen: { width, height }} = this.props;
-    return <canvas ref="canvas" width={width} height={height} />;
+    return (
+          <div style={{height: height / 1.1}} className={styles.breakoutScreen}>
+              <canvas ref="canvas" width={width / 1.1 } height={height / 1.2} />;
+          </div>);
   }
 }
