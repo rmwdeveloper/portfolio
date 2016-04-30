@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import * as widgetActions from 'redux/modules/breakout';
-import { Paddle } from 'components';
+import { Paddle, Brick } from 'components';
 const KEY = {
   LEFT: 37,
   RIGHT: 39,
@@ -39,6 +39,12 @@ export default class Breakout extends Component {
   };
   constructor() {
     super();
+    this.generateBricks = this.generateBricks.bind(this);
+    this.updateBricks = this.updateBricks.bind(this);
+    this.bricks = [];
+    this.numColumns = 10;
+    this.numRows = 4;
+    this.brickHeight = 20;
   }
   componentWillMount() {
     this.handleResize();
@@ -52,6 +58,19 @@ export default class Breakout extends Component {
     this.props.setContext(context);
     this.startGame();
     requestAnimationFrame(() => {this.update();});
+  }
+  generateBricks() {
+    console.log('generateBricks..');
+    const { screen } = this.props;
+    for (let i = 0; i < this.numColumns; i++) {
+      for (let j = 0; j < this.numRows; j++) {
+        this.bricks.push(new Brick({
+          position: {x: i * screen.width / this.numColumns, y: j * this.brickHeight},
+          brickWidth: screen.width / this.numColumns,
+          brickHeight: this.brickHeight
+        }));
+      }
+    }
   }
   handleKeys(value, e) {
     const { keys, keyPress } = this.props;
@@ -78,6 +97,13 @@ export default class Breakout extends Component {
         y: height / 1.15
       }
     });
+    this.generateBricks();
+  }
+  updateBricks(context) {
+    console.log('updateing bricks..', this.bricks.length);
+    for (let i = 0; i < this.bricks.length; i++) {
+      this.bricks[i].render(context);
+    }
   }
   updatePaddle(keys, context, screen) {
     this.paddle.render(keys, context, screen);
@@ -89,6 +115,7 @@ export default class Breakout extends Component {
     context.fillRect(0, 0, screen.width, screen.height);
     context.globalAlpha = 1;
     this.updatePaddle(keys, context, screen);
+    this.updateBricks(context);
     requestAnimationFrame(() => {this.update();});
   }
   render() {
