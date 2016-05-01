@@ -5,6 +5,7 @@ import {
     App,
     About,
     Home,
+    MapMaker,
     NotFound,
     Breakout
   } from 'containers';
@@ -21,6 +22,7 @@ export default () => {
       /* Routes*/
       <Route path="about" component={About}/>
       <Route path="breakout" component={Breakout}/>
+      <Route path="mapmaker" component={MapMaker}/>
       { /* Catch all route */ }
       <Route path="*" component={NotFound} status={404} />
     </Route>
