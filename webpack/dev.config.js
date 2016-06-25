@@ -67,8 +67,8 @@ module.exports = {
   entry: {
     'main': [
       'webpack-hot-middleware/client?path=http://' + host + ':' + port + '/__webpack_hmr',
-      'bootstrap-sass!./src/theme/bootstrap.config.js',
       'font-awesome-webpack!./src/theme/font-awesome.config.js',
+      'bootstrap-loader',
       './src/client.js'
     ]
   },
@@ -109,6 +109,9 @@ module.exports = {
       __SERVER__: false,
       __DEVELOPMENT__: true,
       __DEVTOOLS__: true  // <-------- DISABLE redux-devtools HERE
+    }),
+    new webpack.ProvidePlugin({
+      'window.Tether': 'tether'
     }),
     webpackIsomorphicToolsPlugin.development()
   ]
